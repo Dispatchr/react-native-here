@@ -32,7 +32,8 @@ public class HereMapPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        HereMapManager mapManager = new HereMapManager(reactContext);
+        //HereMapManager mapManager = new HereMapManager(reactContext);
+        HereMapManager mapManager = new HereMapManager();
         return Arrays.<ViewManager>asList(mapManager);
     }
 }

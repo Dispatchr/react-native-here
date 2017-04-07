@@ -12,15 +12,35 @@ import {
   Text,
   Button,
   View,
-  NativeModules
+  NativeModules,
+  findNodeHandle,
 } from 'react-native';
 
 import ToastDroid from './ToastDroid';
 import MapView from './MapView';
 
 const MapViewComponent = NativeModules.MapView;
+const UIManager = NativeModules.UIManager;
 
 export default class HereMapsRN extends Component {
+
+  onZoomInPress = () => {
+    UIManager.dispatchViewManagerCommand(
+        findNodeHandle(this),
+        UIManager.MapView.Commands.zoomOut,
+        [15] );
+  }
+
+  onZoomOutPress = () => {
+    UIManager.dispatchViewManagerCommand(
+        findNodeHandle(this),
+        UIManager.MapView.Commands.zoomOut,
+        [5] );
+  }
+
+  onButtonPress = () => {
+    ToastDroid.show('Button has been pressed!', ToastDroid.SHORT);
+  };
 
   render() {
     return (
@@ -36,15 +56,15 @@ export default class HereMapsRN extends Component {
 
           <Button
             title="+"
-            onPress={onZoomInPress} />
+            onPress={this.onZoomInPress} />
 
           <Button
             title="-"
-            onPress={onZoomOutPress} />
-
+            onPress={this.onZoomOutPress} />
           <Button
+
             title="o"
-            onPress={onButtonPress} />
+            onPress={this.onButtonPress} />
 
         </View>
 
@@ -53,18 +73,6 @@ export default class HereMapsRN extends Component {
   }
 }
 
-const onZoomInPress = () => {
-  MapViewComponent.zoom(10);
-  ToastDroid.show('Button has been pressed!', ToastDroid.SHORT);
-}
 
-const onZoomOutPress = () => {
-  MapViewComponent.zoom(20);
-  ToastDroid.show('Button has been pressed!', ToastDroid.SHORT);
-}
-
-const onButtonPress = () => {
-  ToastDroid.show('Button has been pressed!', ToastDroid.SHORT);
-};
 
 AppRegistry.registerComponent('HereMapsRN', () => HereMapsRN);
