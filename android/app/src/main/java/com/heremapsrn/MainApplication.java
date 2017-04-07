@@ -7,7 +7,8 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.heremapsrn.toast.ToastDroidPackage;
+import com.heremapsrn.react.map.HereMapPackage;
+import com.heremapsrn.react.toast.ToastDroidPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,10 +23,10 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-          new ToastDroidPackage() // we must register our package to expose it
-      );
+      return Arrays.asList(
+              new MainReactPackage(),
+              new ToastDroidPackage(), // we must register our package to expose it
+              new HereMapPackage());
     }
   };
 
@@ -39,4 +40,5 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }
+
 }
