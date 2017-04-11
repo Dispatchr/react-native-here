@@ -1,7 +1,13 @@
 // MapView.js
 
 import React, { PropTypes } from 'react';
-import { requireNativeComponent, View, NativeModules } from 'react-native';
+import {
+  View,
+  Button,
+  NativeModules,
+  requireNativeComponent,
+  findNodeHandle
+} from 'react-native';
 
 const MAP_TYPES = {
   NORMAL: 'normal',
@@ -9,6 +15,7 @@ const MAP_TYPES = {
 };
 
 const MapViewComponent = NativeModules.MapView;
+const UIManager = NativeModules.UIManager;
 
 var iface = {
   name: 'MapView',
@@ -43,6 +50,19 @@ var iface = {
   },
 };
 
+// requireNativeComponent commonly takes two parameters, the first is
+// the name of the native view and the second is an object that describes the
+// component interface. The component interface should declare a friendly name
+// for use in debug messages and must declare the propTypes reflected by the
+// Native View. The propTypes are used for checking the validity of a user's
+// use of the native view.
+// Note that if you need your JavaScript component to do
+// more than just specify a name and propTypes, like do custom event handling,
+// you can wrap the native component in a normal react component. In that case,
+// you want to pass in the wrapper component instead of iface to
+// requireNativeComponent.
+const HereMapView = requireNativeComponent('HereMapView', iface);
+
 class MapView extends React.Component {
 
   constructor(props) {
@@ -50,6 +70,7 @@ class MapView extends React.Component {
 
     this.state = {
       isReady: false,
+      zoomLevel: 15
     };
 
     this._onMapReady = this._onMapReady.bind(this);
@@ -72,20 +93,63 @@ class MapView extends React.Component {
     }
   }
 
+  render() {
+    return (
+
+      <HereMapView
+        style={ this.props.style }
+        center={ this.props.center }
+        mapType={ this.props.mapType }
+        initialZoom={ this.props.initialZoom } >
+
+        <View style={{ position:'absolute', top: 10, right: 10,
+                       width: 50, height: 120,
+                       justifyContent: 'space-between', zIndex:10 }}>
+
+          <Button
+            title="+"
+            onPress={this.onZoomInPress} />
+
+          <Button
+            title="-"
+            onPress={this.onZoomOutPress} />
+
+          <Button
+            title="o"
+            onPress={this.onButtonPress} />
+
+        </View>
+      </HereMapView>
+    );
+  }
+
   _onMapReady() {
     this.setState({ isReady: true });
   }
+
+  onZoomInPress = () => {
+    if ( this.state.zoomLevel < 20 ) {
+      this.setState({ zoomLevel : this.state.zoomLevel + 1});
+      UIManager.dispatchViewManagerCommand(
+          findNodeHandle(this),
+          UIManager.HereMapView.Commands.zoomIn,
+          [this.state.zoomLevel] );
+    }
+  }
+
+  onZoomOutPress = () => {
+    if (this.state.zoomLevel > 0) {
+      this.setState({ zoomLevel : this.state.zoomLevel - 1});
+      UIManager.dispatchViewManagerCommand(
+          findNodeHandle(this),
+          UIManager.HereMapView.Commands.zoomOut,
+          [ this.state.zoomLevel ] );
+    }
+  }
+
+  onButtonPress = () => {
+    ToastDroid.show('Button has been pressed!', ToastDroid.SHORT);
+  };
 }
 
-// requireNativeComponent commonly takes two parameters, the first is
-// the name of the native view and the second is an object that describes the
-// component interface. The component interface should declare a friendly name
-// for use in debug messages and must declare the propTypes reflected by the
-// Native View. The propTypes are used for checking the validity of a user's
-// use of the native view.
-// Note that if you need your JavaScript component to do
-// more than just specify a name and propTypes, like do custom event handling,
-// you can wrap the native component in a normal react component. In that case,
-// you want to pass in the wrapper component instead of iface to
-// requireNativeComponent.
-module.exports = requireNativeComponent('MapView', iface), MapViewComponent;
+module.exports = MapView;
