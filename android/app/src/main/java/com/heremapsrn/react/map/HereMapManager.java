@@ -18,7 +18,7 @@ class HereMapManager extends ViewGroupManager<HereMapView> {
     static final int COMMAND_ZOOM_IN = 1;
     static final int COMMAND_ZOOM_OUT = 2;
 
-    static final String REACT_CLASS = "MapView";
+    static final String REACT_CLASS = "HereMapView";
 
     private static final String TAG = HereMapManager.class.getSimpleName();
 
