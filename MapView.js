@@ -70,7 +70,8 @@ class MapView extends React.Component {
 
     this.state = {
       isReady: false,
-      zoomLevel: 15
+      zoomLevel: 15,
+      center: this.props.center
     };
 
     this._onMapReady = this._onMapReady.bind(this);
@@ -116,7 +117,7 @@ class MapView extends React.Component {
 
           <Button
             title="o"
-            onPress={this.onButtonPress} />
+            onPress={this.onSetCenterPress} />
 
         </View>
       </HereMapView>
@@ -147,9 +148,14 @@ class MapView extends React.Component {
     }
   }
 
-  onButtonPress = () => {
-    ToastDroid.show('Button has been pressed!', ToastDroid.SHORT);
-  };
+  onSetCenterPress = () => {
+    this.setState({ center : this.state.center });
+    UIManager.dispatchViewManagerCommand(
+        findNodeHandle(this),
+        UIManager.HereMapView.Commands.setCenter,
+        [ this.state.center ] );
+  }
+
 }
 
 module.exports = MapView;
