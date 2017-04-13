@@ -15,24 +15,13 @@ import javax.annotation.Nullable;
 
 class HereMapManager extends ViewGroupManager<HereMapView> {
 
-    static final int COMMAND_ZOOM_IN = 1;
-    static final int COMMAND_ZOOM_OUT = 2;
+    private static final int COMMAND_ZOOM_IN = 1;
+    private static final int COMMAND_ZOOM_OUT = 2;
+    private static final int COMMAND_SET_CENTER = 3;
 
     static final String REACT_CLASS = "HereMapView";
 
     private static final String TAG = HereMapManager.class.getSimpleName();
-
-    //private final ReactApplicationContext appContext;
-
-    //private Activity currentActivity;
-
-//    public HereMapManager(Activity activity) {
-//        currentActivity = activity;
-//    }
-
-//    HereMapManager(ReactApplicationContext context) {
-//        this.appContext = context;
-//    }
 
     @Override
     public String getName() {
@@ -44,13 +33,13 @@ class HereMapManager extends ViewGroupManager<HereMapView> {
         return new HereMapView(reactContext);
     }
 
-
     @Override
-    public Map<String,Integer> getCommandsMap() {
+    public Map<String, Integer> getCommandsMap() {
         Log.d("React"," View manager getCommandsMap:");
         return MapBuilder.of(
                 "zoomIn", COMMAND_ZOOM_IN,
-                "zoomOut", COMMAND_ZOOM_OUT);
+                "zoomOut", COMMAND_ZOOM_OUT,
+                "setCenter", COMMAND_SET_CENTER);
     }
 
     @Override
@@ -61,15 +50,22 @@ class HereMapManager extends ViewGroupManager<HereMapView> {
         Assertions.assertNotNull(view);
         Assertions.assertNotNull(args);
 
-        double zoomLevel = args.getDouble(0);
-
         switch (commandType) {
             case COMMAND_ZOOM_IN: {
+                double zoomLevel = args.getDouble(0);
                 view.setZoomLevel(zoomLevel);
                 return;
             }
+
             case COMMAND_ZOOM_OUT: {
+                double zoomLevel = args.getDouble(0);
                 view.setZoomLevel(zoomLevel);
+                return;
+            }
+
+            case COMMAND_SET_CENTER: {
+                String coordinate = args.getString(0);
+                view.setCenter(coordinate);
                 return;
             }
 
