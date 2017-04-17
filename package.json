@@ -1,6 +1,6 @@
 {
 	"name": "react-native-heremaps",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "An attempt to use HEREMaps for Android in React Native.",
 	"main": "./MapView.js",
 	"private": false,
