@@ -48,14 +48,14 @@
         <!-- HEREMaps -->
         <meta-data
             android:name="com.here.android.maps.appid"
-            android:value="dH23jnEeMD1bOfYRY7Zo" />
+            android:value="YOUR-APP-ID-HERE" />
 
         <meta-data
             android:name="com.here.android.maps.apptoken"
-            android:value="fWp2YvzC7cjWEHSkPSXp6Q" />
+            android:value="YOUR-APP-TOKEN-HERE" />
 
         <meta-data android:name="com.here.android.maps.license.key"
-            android:value="LC03GItBnhDZFGCDk/xGWVZ+dme1kSwPoYpuU7Teorc3ZgvMcK2mwgJPs3b3J6QChka1JvEFRa2grEgNbNhE9LpUVsQJ1FeVm7nPWHTJdCkq9N38Us87Ivx7OaQFbPcQ4O5M3mjErKSj7oa8icpOoiFDw7PhWWzPYEZ2NTMVBOXWslC4Uh4GTkuFV9muLcSPP41RB1HN8dq+gAp4QVUurPc6Tw3BvAa0pxbSRmzI478ZReNffFyTDeZwEnTeDlrUT6r3SLFtdRFKDyBzQW4zzOBCISklzVdKy2l/she734XgCflP9ENwj5esgv+AYEeKo5dxQeOmZltUr2gEPgAdv/EKw06MPGhIDnDRC5XKZfSSPd7DGd8XsWHnJPmvb0NOOCxiqUg2AGuVvC87dS8m11+URfGwhjZKacxWMLYdVd+0VKSC/2r0UIdY/hkogHg/cc3aHFiqL0SIuIa5+RlAx1v/4LaNSpKT7KCXPCjMRuTQ002Y7AILOBQZhihjGvYl1MC4FMocHCyTA21AeN+6Z7RC+ExkeQhWP6GBLenvH1ianCSyFJQJ8ZJEUkZf5t05q1QIKoeP0C23J+5HVlujroPzMuY673e/PAFUFXkmWuZ7Lm2Z7ItpyE08aXvX2aGVKxgauFUaOAf91110BGwSPB+yxx+K0cfA2cI8ehjEUFM="/>
+            android:value="YOUR-LICENSE-KEY-HERE"/>
 
     </application>
 

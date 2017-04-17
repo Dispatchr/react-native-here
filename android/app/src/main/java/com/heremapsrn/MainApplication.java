@@ -8,7 +8,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.heremapsrn.react.map.HereMapPackage;
-import com.heremapsrn.react.toast.ToastDroidPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +24,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.asList(
               new MainReactPackage(),
-              new ToastDroidPackage(), // we must register our package to expose it
+              // we must register our package to expose it
               new HereMapPackage());
     }
   };
